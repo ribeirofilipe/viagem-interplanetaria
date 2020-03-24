@@ -3,16 +3,23 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   margin: 80px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0;
+`;
+
+export const Header = styled.div`
+  font-size: 30px;
 `;
 
 export const Planets = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   height: 100%;
 
   span {
-    margin: auto;
+    display: flex;
+    justify-content: flex-start;
   }
 
   li {

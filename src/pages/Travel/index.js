@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
-import { IoMdPlanet } from 'react-icons/io';
+import { GiSolarSystem } from 'react-icons/gi';
 
 import Form from '../../components/Form';
 import Planet from '../../components/Planet';
+import Welcome from '../../components/Welcome';
+import Header from '../../components/Header';
 
 import { Container, Planets } from './styles';
 
@@ -15,18 +17,7 @@ export default function Travel() {
   const [travelPlans, setTravelPlans] = useState([]);
 
   function handleSaveTravel(description, planet) {
-    let lastId;
-    let newTravelPlans = [];
-
-    if (id) {
-      newTravelPlans = travelPlans.filter(travel => travel.id !== id);
-      lastId = id;
-    }
-    else {
-      lastId = travelPlans[travelPlans.length-1]?.id + 1 || 1;
-    }
-
-    setTravelPlans([...newTravelPlans, ...travelPlans, { id: lastId, description, planet }]);
+    setTravelPlans([...travelPlans, { description, planet }]);
 
     setDescription('');
     setPlanet('');
@@ -49,23 +40,27 @@ export default function Travel() {
   }
 
   return (
-    <Container>
-      <Form handleSaveTravel={handleSaveTravel} description={description} planet={planet} />
-      <Planets>
-        {travelPlans.length > 0 ? travelPlans.map(item => (
-          <li key={item.id}>
-            <Planet 
-              handleDeleteTravel={handleDeleteTravel} 
-              handleOpenUpdateTravelMode={handleOpenUpdateTravelMode}
-              id={item.id}
-              planet={item.planet} 
-              description={item.description} />
-          </li>
-        )) : 
-        <span>
-          <IoMdPlanet color="white" size={700}/>
-        </span>}
-      </Planets>
+    <>
+      <Header />
+      <Welcome />
+      <Container>
+        <Planets>
+          {travelPlans.length > 0 ? travelPlans.map(item => (
+            <li key={item.id}>
+              <Planet 
+                handleDeleteTravel={handleDeleteTravel} 
+                handleOpenUpdateTravelMode={handleOpenUpdateTravelMode}
+                id={item.id}
+                planet={item.planet} 
+                description={item.description} />
+            </li>
+          )) : 
+          <span>
+            <GiSolarSystem color="white" size={700}/>
+          </span>}
+        </Planets>
+        <Form handleSaveTravel={handleSaveTravel} description={description} planet={planet} />
     </Container>
+    </>
   )
 }
