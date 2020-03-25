@@ -83,6 +83,7 @@ export const FormStyle = styled.form.attrs(props => (
     font-size: 16px;
     font-weight: 100;
     letter-spacing: 10px;
+    cursor: pointer;
   }
 
   button[type="submit"]:hover,

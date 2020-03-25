@@ -10,7 +10,7 @@ export default function Welcome() {
           Hoth!
         </Hoth>
       </span>
-      <span>Para uma estratégia de batalha, use o formulário ao lado esquerdo.</span>
+      <span>Para uma estratégia de batalha, use o formulário.</span>
     </Container>
   )
 }

@@ -73,7 +73,7 @@ export default function Form({
             ))}
             </SelectStyle>
         {errors.Planeta && <p>This field is required</p>}
-        <input type="submit" />
+        <input value="Enviar" type="submit" />
       </FormStyle>
     </Container>
   );
