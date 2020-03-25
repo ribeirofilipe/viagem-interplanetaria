@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { GiSolarSystem } from 'react-icons/gi';
+
+export const Icon = styled(GiSolarSystem)`
+  font-size: 35vw;
+`;
 
 export const Container = styled.div.attrs(props => (
   props.travelPlans
 ))`
   display: flex;
   justify-content: flex-start;
-  margin: 80px;
+    margin: 80px;
   width: 100%;
   margin: 0;
   

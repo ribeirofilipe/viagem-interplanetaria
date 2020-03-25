@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { GiSolarSystem } from 'react-icons/gi';
 
 import Form from '../../components/Form';
 import Planet from '../../components/Planet';
 import Welcome from '../../components/Welcome';
 import Header from '../../components/Header';
 
-import { Container, Planets } from './styles';
+import { Container, Planets, Icon} from './styles';
 
 export default function Travel() {
   const [planet, setPlanet] = useState('');
@@ -84,7 +83,7 @@ export default function Travel() {
       <Welcome />
       <Container travelPlans={travelPlans}>
         <span>
-          <GiSolarSystem  color="white" size={700}/>
+          <Icon color="white"/>
         </span> 
         <Form 
           travelPlans={travelPlans}

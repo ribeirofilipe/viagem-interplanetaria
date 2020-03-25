@@ -10,7 +10,7 @@ export const Container = styled.div`
   align-items: center;
 
   span {
-    font-size: 30px;
+    font-size: 1.5vw;
     color: #fff;
     margin-bottom: 20px;
   }
