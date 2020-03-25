@@ -5,7 +5,7 @@ import { Container, Hoth } from './styles';
 export default function Welcome() {
   return (
     <Container>
-      <span>Bem vindo ao  
+      <span>Bem vindo ao
         <Hoth>
           Hoth!
         </Hoth>

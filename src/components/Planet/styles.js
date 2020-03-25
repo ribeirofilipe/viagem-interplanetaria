@@ -1,34 +1,45 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background: #fff;
   width: 100%;
   height: 100%;
-  margin: 0 20px 20px 20px;
+  margin: 0 10px 10px 10px;
   padding: 20px;
   border-radius: 4px;
+  border: 1px solid #fff;
 
   display: flex;
   justify-content: space-between;
   
-  > div {
+  div {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+
+    div {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
 
     label {
-      color: #7159c1;
-      margin: 0 10px;
-      font-size: 22px;
+      color: #fff;    
+      font-size: 16px;
+      margin-right: 10px;
     }
     span {
-      font-size: 20px;
+      color: #fff;
+      font-size: 15px;
     }
   }
 
   section {
+    display: flex;
+    
     span {
+      width: 100%;
       margin-left: 20px;
     }
 

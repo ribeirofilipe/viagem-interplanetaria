@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState, useEffect }from "react";
+import { useForm } from "react-hook-form";
+
 import api from '../../services/api';
-import TextField from '@material-ui/core/TextField';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { Container, FormStyle, SelectStyle } from './styles';
 
-import { Container, FormControlPlanet, SelectPlanet } from './styles';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
-
-
-export default function Form({ handleSaveTravel, description: updateDescription, planet: updatePlanet, id}) {
-  const classes = useStyles();
-
+export default function Form({ 
+  travelPlans, 
+  handleSaveTravel, 
+  description: descriptionUpdate, 
+  planet: planetUpdate,
+  index,
+  handleUpdateTravel,
+  isEditing }) {
   const [planet, setPlanet] = useState('');
   const [description, setDescription] = useState('');
   const [planets, setPlanets] = useState([]);
@@ -36,51 +29,48 @@ export default function Form({ handleSaveTravel, description: updateDescription,
   }, [])
 
   function cleanForm() {
-    setPlanet('');
-    setDescription('');
+    setValue("reactSelect", '');
+    setPlanet(null);
+    setDescription(null);
   }
 
+  const { register, handleSubmit, errors, setValue } = useForm();
+
+
+  const onSubmit = () => {
+    cleanForm();
+
+    if (isEditing) return handleUpdateTravel(index, description, planet);
+
+    handleSaveTravel(description, planet);
+  }; 
+
   return (
-    <Container>
-      <form className={classes.root} noValidate autoComplete="off">
-        <FormControlPlanet variant="outlined">
-          <TextField
-            required  
-            id="outlined-required"
-            label="Description"
-            variant="outlined"
-            onChange={e => setDescription(e.target.value)}
-            value={description || updateDescription}
-          />
-          <SelectPlanet
-            native
-            value={planet || updatePlanet}
-            label="Age"
-            inputProps={{
-              name: 'age',
-              id: 'outlined-age-native-simple',
-            }}
-            onChange={e => setPlanet(e.target.value)}
-          >
-          <option value="">
-            Select a planet
-          </option>
-          {planets.map(planet => (
-            <option key={planet}>{planet}</option>
-          ))}
-          </SelectPlanet>
-          <Button 
-            onClick={() => {
-              cleanForm();
-              handleSaveTravel(description || updateDescription, planet || updatePlanet);
-            }}
-            className="form-button"
-            variant="contained" 
-            color="primary">
-            Salvar  
-          </Button>
-        </FormControlPlanet>
-      </form>
+    <Container travelPlans={travelPlans}>
+      <FormStyle travelPlans={travelPlans} onSubmit={handleSubmit(onSubmit)}>
+        <label>Descrição</label>
+        <input 
+          name="Descricao" 
+          onChange={e => setDescription(e.target.value)} 
+          value={description || descriptionUpdate} 
+          ref={register({ required: true })} />
+        {errors.Descricao && <p>This field is required</p>}
+        <label>Planeta</label>
+        <SelectStyle
+              name="Planeta"
+              placeholder="Selecione o planeta"
+              value={planet || planetUpdate}
+              onChange={e => setPlanet(e.target.value)}
+              ref={register({ required: true })} 
+            >
+               <option value="">Selecione o planeta</option>
+              {planets?.map(planet => (
+                <option key={planet}>{planet}</option>
+            ))}
+            </SelectStyle>
+        {errors.Planeta && <p>This field is required</p>}
+        <input type="submit" />
+      </FormStyle>
     </Container>
   );
 } 
