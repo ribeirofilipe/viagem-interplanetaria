@@ -26,6 +26,8 @@ export default function Travel() {
 
 
   function handleSaveTravel(description, planet) {
+    if (duplicatedValidation(description)) return;
+    
     localStorage.setItem('travelPlans', 
       JSON.stringify([...travelPlans, { description, planet }]));
 
@@ -37,13 +39,20 @@ export default function Travel() {
   }
 
   function handleUpdateTravel(index, description, planet) {
-    const newTravelPlans = travelPlans.splice(index, 1);
-    localStorage.setItem('travelPlans', 
-        JSON.stringify([...newTravelPlans, { description, planet }]));
+    if (duplicatedValidation(description)) return;
+    
+    travelPlans.splice(index, 1, { description, planet });
 
-    setTravelPlans([...newTravelPlans, { description, planet }])
+    localStorage.setItem('travelPlans', 
+        JSON.stringify([...travelPlans]));
+
+    setTravelPlans([...travelPlans])
     setIsEditing(false);
     setIndex(0);
+    setDescription('');
+    setPlanet('');
+
+    toast.success("Atualizado com sucesso!");
   }
 
   function handleDeleteTravel(description) {
@@ -64,6 +73,11 @@ export default function Travel() {
     setIndex(index);
   }
 
+  function duplicatedValidation (description) {
+      if (travelPlans.find(travel => travel.description === description) && !isEditing) {
+      return toast.error("Viagem já existente!")
+    }
+  }
   return (
     <>
       <Header />
@@ -81,8 +95,8 @@ export default function Travel() {
           isEditing={isEditing}
           planet={planet}/>
         <Planets>
-          {travelPlans?.map(item => (
-            <li key={item.id}>
+          {travelPlans.map(item => (
+            <li key={item.description}>
               <Planet 
                 index={travelPlans.findIndex(travel => travel.description === item.description)}
                 handleDeleteTravel={handleDeleteTravel} 

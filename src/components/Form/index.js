@@ -25,16 +25,20 @@ export default function Form({
       setPlanets(planetsName);
     }
 
+    if (descriptionUpdate) {
+      setPlanet(planetUpdate);
+      setDescription(descriptionUpdate);
+    }
+
     loadPlanets();
-  }, [])
+  }, [descriptionUpdate, planetUpdate])
 
   function cleanForm() {
-    setValue("reactSelect", '');
-    setPlanet(null);
-    setDescription(null);
+    setPlanet('');
+    setDescription('');
   }
 
-  const { register, handleSubmit, errors, setValue } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
 
   const onSubmit = () => {
@@ -52,19 +56,19 @@ export default function Form({
         <input 
           name="Descricao" 
           onChange={e => setDescription(e.target.value)} 
-          value={description || descriptionUpdate} 
+          value={description} 
           ref={register({ required: true })} />
         {errors.Descricao && <p>This field is required</p>}
         <label>Planeta</label>
         <SelectStyle
               name="Planeta"
               placeholder="Selecione o planeta"
-              value={planet || planetUpdate}
+              value={planet}
               onChange={e => setPlanet(e.target.value)}
               ref={register({ required: true })} 
             >
                <option value="">Selecione o planeta</option>
-              {planets?.map(planet => (
+              {planets.map(planet => (
                 <option key={planet}>{planet}</option>
             ))}
             </SelectStyle>

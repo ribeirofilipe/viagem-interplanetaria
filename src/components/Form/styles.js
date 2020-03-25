@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Select from "react-select";
 
 export const SelectStyle = styled.select`
   border: 1px solid #7159c1;
